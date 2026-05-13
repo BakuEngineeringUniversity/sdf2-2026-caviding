@@ -1,3 +1,3 @@
 interface TimeEstimator {
-    fun getEstimatedTime(): Float
+    fun getEstimatedTime(): Double
 }
