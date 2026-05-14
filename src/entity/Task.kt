@@ -1,10 +1,20 @@
+package entity
+
+import enums.Priority
+import enums.TaskStatus
+import enums.TaskType
+import interfaces.TaskOperations
+import interfaces.TimeEstimator
+import interfaces.TimeTracking
+import java.time.LocalDateTime
+
 abstract class Task(
     var name: String,
     var description: String,
     var timeSpent: Double = 0.0,
     var status: TaskStatus = TaskStatus.PENDING,
     var priority: Priority = Priority.MEDIUM,
-    val createdAt: java.time.LocalDateTime = java.time.LocalDateTime.now()
+    val createdAt: LocalDateTime = LocalDateTime.now()
 ) : TimeTracking, TaskOperations, TimeEstimator {
 
     abstract val taskType: TaskType
@@ -33,9 +43,9 @@ abstract class Task(
         try {
             if (status == TaskStatus.PENDING || status == TaskStatus.ON_HOLD) {
                 status = TaskStatus.IN_PROGRESS
-                println("Task started: $name")
+                println("entity.Task started: $name")
             } else {
-                throw IllegalStateException("Task '$name' is already $status")
+                throw IllegalStateException("entity.Task '$name' is already $status")
             }
         } catch (e: IllegalStateException) {
             println("Cannot start task: ${e.message}")
@@ -45,10 +55,10 @@ abstract class Task(
     override fun completeTask() {
         try {
             if (status == TaskStatus.COMPLETED) {
-                throw IllegalStateException("Task '$name' is already completed")
+                throw IllegalStateException("entity.Task '$name' is already completed")
             }
             status = TaskStatus.COMPLETED
-            println("Task completed: $name")
+            println("entity.Task completed: $name")
         } catch (e: IllegalStateException) {
             println("Cannot complete task: ${e.message}")
         }
@@ -58,9 +68,9 @@ abstract class Task(
         try {
             if (status == TaskStatus.IN_PROGRESS) {
                 status = TaskStatus.ON_HOLD
-                println("Task paused: $name")
+                println("entity.Task paused: $name")
             } else {
-                throw IllegalStateException("Task '$name' is not in progress (current status: $status)")
+                throw IllegalStateException("entity.Task '$name' is not in progress (current status: $status)")
             }
         } catch (e: IllegalStateException) {
             println("Cannot pause task: ${e.message}")
@@ -68,7 +78,7 @@ abstract class Task(
     }
 
     override fun getTaskSummary(): String {
-        return "[$taskType] $name - $status - Priority: ${priority.displayName} - Time: ${timeSpent}h"
+        return "[$taskType] $name - $status - enums.Priority: ${priority.displayName} - Time: ${timeSpent}h"
     }
 
     fun getProgressPercentage(): Double {
@@ -78,6 +88,12 @@ abstract class Task(
         } catch (e: Exception) {
             println("Error calculating progress: ${e.message}")
             0.0
+        }
+    }
+
+    companion object {
+        fun getProgressPercentage() {
+            TODO("Not yet implemented")
         }
     }
 }

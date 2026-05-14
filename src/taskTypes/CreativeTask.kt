@@ -1,3 +1,8 @@
+package taskTypes
+
+import entity.Task
+import kotlin.text.format
+
 abstract class CreativeTask(
     name: String,
     description: String,
@@ -5,7 +10,7 @@ abstract class CreativeTask(
 ) : Task(name, description) {
 
     abstract fun getComplexityFactor(): Double
-    
+
     override fun getEstimatedTime(): Double {
         val baseTime = getBaseEstimatedTime()
         return baseTime * getComplexityFactor() * (1 + (priority.level - 2) * 0.2f)
@@ -24,7 +29,7 @@ abstract class CreativeTask(
     }
 
     override fun displayInfo() {
-        val progress = getProgressPercentage()
+        val progress = Task.getProgressPercentage()
         val estimated = getEstimatedTime()
         println("${getTaskTypeDisplay()}: $name - ${getComplexityDescription()} (${timeSpent}h / ${estimated}h) - %${"%.1f".format(progress)}")
     }

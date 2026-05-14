@@ -1,3 +1,5 @@
+package enums
+
 enum class DesignType(val displayName: String) {
     UI("UI Design"),
     UX("UX Design"),

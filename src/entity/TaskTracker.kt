@@ -1,13 +1,20 @@
+package entity
+
+import enums.Priority
+import enums.TaskStatus
+import enums.TaskType
+import interfaces.TaskManager
+
 class TaskTracker : TaskManager {
     private val tasks = mutableListOf<Task>()
 
     override fun addTask(task: Task) {
         try {
             if (task.name.isBlank()) {
-                throw IllegalArgumentException("Task name cannot be empty")
+                throw IllegalArgumentException("entity.Task name cannot be empty")
             }
             tasks.add(task)
-            println("Task added: ${task.name}")
+            println("entity.Task added: ${task.name}")
         } catch (e: IllegalArgumentException) {
             println("Error adding task: ${e.message}")
         } catch (e: Exception) {
@@ -21,7 +28,7 @@ class TaskTracker : TaskManager {
                 throw IndexOutOfBoundsException("Invalid task number: ${index + 1}")
             }
             val removed = tasks.removeAt(index)
-            println("Task removed: ${removed.name}")
+            println("entity.Task removed: ${removed.name}")
         } catch (e: IndexOutOfBoundsException) {
             println("Error removing task: ${e.message}")
         } catch (e: Exception) {
@@ -94,7 +101,7 @@ class TaskTracker : TaskManager {
         Priority.values().sortedByDescending { it.level }.forEach { priority ->
             val priorityTasks = getTasksByPriority(priority)
             if (priorityTasks.isNotEmpty()) {
-                println("\n${priority.displayName} Priority (${priorityTasks.size}):")
+                println("\n${priority.displayName} enums.Priority (${priorityTasks.size}):")
                 priorityTasks.forEachIndexed { i, task ->
                     println("  ${i + 1}. ${task.name} - ${task.status}")
                 }
@@ -110,7 +117,7 @@ class TaskTracker : TaskManager {
             val totalTime = getTotalTime()
 
             """
-            Task Statistics:
+            entity.Task Statistics:
             - Total Tasks: $totalTasks
             - Completed: $completedTasks
             - In Progress: $inProgressTasks
@@ -124,7 +131,7 @@ class TaskTracker : TaskManager {
 
     fun startTask(index: Int) {
         try {
-            getTask(index)?.startTask() ?: throw IndexOutOfBoundsException("Task not found at index: ${index + 1}")
+            getTask(index)?.startTask() ?: throw IndexOutOfBoundsException("entity.Task not found at index: ${index + 1}")
         } catch (e: IndexOutOfBoundsException) {
             println("Error: ${e.message}")
         }
@@ -132,7 +139,7 @@ class TaskTracker : TaskManager {
 
     fun completeTask(index: Int) {
         try {
-            getTask(index)?.completeTask() ?: throw IndexOutOfBoundsException("Task not found at index: ${index + 1}")
+            getTask(index)?.completeTask() ?: throw IndexOutOfBoundsException("entity.Task not found at index: ${index + 1}")
         } catch (e: IndexOutOfBoundsException) {
             println("Error: ${e.message}")
         }
@@ -140,7 +147,7 @@ class TaskTracker : TaskManager {
 
     fun pauseTask(index: Int) {
         try {
-            getTask(index)?.pauseTask() ?: throw IndexOutOfBoundsException("Task not found at index: ${index + 1}")
+            getTask(index)?.pauseTask() ?: throw IndexOutOfBoundsException("entity.Task not found at index: ${index + 1}")
         } catch (e: IndexOutOfBoundsException) {
             println("Error: ${e.message}")
         }
@@ -148,7 +155,7 @@ class TaskTracker : TaskManager {
 
     fun addTimeToTask(index: Int, hours: Double) {
         try {
-            getTask(index)?.addTime(hours) ?: throw IndexOutOfBoundsException("Task not found at index: ${index + 1}")
+            getTask(index)?.addTime(hours) ?: throw IndexOutOfBoundsException("entity.Task not found at index: ${index + 1}")
         } catch (e: IndexOutOfBoundsException) {
             println("Error: ${e.message}")
         }

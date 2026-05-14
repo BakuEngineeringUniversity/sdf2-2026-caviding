@@ -1,3 +1,7 @@
+package taskTypes
+
+import enums.TaskType
+
 class WritingTask(
     name: String,
     description: String,

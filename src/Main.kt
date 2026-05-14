@@ -1,11 +1,28 @@
-import DesignType
+import entity.TaskTracker
+import enums.DesignType
+import enums.Priority
+import enums.TaskStatus
+import enums.TaskType
+import taskTypes.DesignTask
+import taskTypes.ProgrammingTask
+import taskTypes.WritingTask
+import taskTypes.WritingType
 
 fun main() {
     val tracker = TaskTracker()
 
     tracker.addTask(ProgrammingTask("Kotlin Mobile App", "Android app development", "Kotlin", "Android Studio", 2))
     tracker.addTask(WritingTask("API Documentation", "REST API documentation", 1500, WritingType.DOCUMENTATION, 2))
-    tracker.addTask(DesignTask("UI Design", "Mobile app interface", DesignType.UI, 15.0, listOf("Figma", "Adobe XD"), 2))
+    tracker.addTask(
+        DesignTask(
+            "UI Design",
+            "Mobile app interface",
+            DesignType.UI,
+            15.0,
+            listOf("Figma", "Adobe XD"),
+            2
+        )
+    )
 
     while (true) {
         displayMainMenu()
@@ -26,7 +43,7 @@ fun main() {
 fun displayMainMenu() {
     println("\n=== TASK TRACKING SYSTEM ===")
     println("1. View Tasks")
-    println("2. Add New Task")
+    println("2. Add New entity.Task")
     println("3. Task Operations")
     println("4. Time Management")
     println("5. Filter and Sort")
@@ -37,10 +54,10 @@ fun displayMainMenu() {
 
 fun addTaskMenu(tracker: TaskTracker) {
     println("\n--- ADD NEW TASK ---")
-    println("1. Programming Task")
-    println("2. Writing Task")
-    println("3. Design Task")
-    print("Task type: ")
+    println("1. Programming entity.Task")
+    println("2. Writing entity.Task")
+    println("3. Design entity.Task")
+    print("entity.Task type: ")
 
     when (readlnOrNull()) {
         "1" -> addProgrammingTask(tracker)

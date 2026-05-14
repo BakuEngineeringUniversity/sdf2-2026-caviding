@@ -1,3 +1,10 @@
+package interfaces
+
+import entity.Task
+import enums.Priority
+import enums.TaskStatus
+import enums.TaskType
+
 interface TaskManager {
     fun addTask(task: Task)
     fun removeTask(index: Int)

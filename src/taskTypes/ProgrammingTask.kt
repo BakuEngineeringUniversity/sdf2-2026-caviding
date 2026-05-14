@@ -1,3 +1,8 @@
+package taskTypes
+
+import entity.Task
+import enums.TaskType
+
 class ProgrammingTask(
     name: String,
     description: String,
@@ -16,21 +21,21 @@ class ProgrammingTask(
             4 -> 40
             else -> 20
         }
-        
+
         val languageMultiplier = when (language.lowercase()) {
             "python", "javascript" -> 0.8
             "kotlin", "java", "c#" -> 1.0
             "c++", "rust" -> 1.3
             else -> 1.0
         }
-        
+
         val frameworkBonus = if (framework.isNotEmpty()) 1.2 else 1.0
-        
+
         return baseTime * languageMultiplier * frameworkBonus * (1 + (priority.level - 2) * 0.2)
     }
 
     override fun displayInfo() {
-        val progress = getProgressPercentage()
+        val progress = Task.getProgressPercentage()
         val estimated = getEstimatedTime()
         val frameworkInfo = if (framework.isNotEmpty()) " ($framework)" else ""
         println("Programming: $name - $language$frameworkInfo - Difficulty: $difficulty/4 (${timeSpent}h / ${estimated}h) - %${"%.1f".format(progress)}")

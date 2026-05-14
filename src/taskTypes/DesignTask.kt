@@ -1,4 +1,7 @@
-import DesignType
+package taskTypes
+
+import enums.DesignType
+import enums.TaskType
 
 class DesignTask(
     name: String,
@@ -19,7 +22,7 @@ class DesignTask(
             4 -> 2.0
             else -> 1.0
         }
-        
+
         val typeFactor = when (designType) {
             DesignType.UI -> 1.0
             DesignType.UX -> 1.3
@@ -27,14 +30,14 @@ class DesignTask(
             DesignType.ANIMATION -> 1.5
             DesignType.PROTOTYPE -> 1.2
         }
-        
+
         val toolsBonus = when {
             tools.size >= 3 -> 1.3f
             tools.size >= 2 -> 1.15f
             tools.size >= 1 -> 1.05f
             else -> 1.0f
         }
-        
+
         return baseFactor * typeFactor * toolsBonus
     }
 
@@ -61,4 +64,3 @@ class DesignTask(
         }
     }
 }
-
